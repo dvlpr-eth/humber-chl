@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body style="
+    background: #F7F7F7;
+">
+<div class="page__overlay" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 1170px;">
+    <div class="container">
+        <section id="tea__info" class="nutrition__template">
+            <div class="side__heading">
+                <div class="side__heading__content">
+                    <h3>Infographic</h3>
+                    <img src="../assets/images/global/icon_info.png" alt="" class="img-responsive">
+                </div>
+            </div>
+            <div class="page__header">
+                <h1>Tea Info</h1>
+                <h5>What are you brewing?</h5>
+            </div>
+            <div class="row tea__first__row">
+                <div class="col-sm-6 ">
+                    <img
+                            data-toggle="popover"
+                            data-placement="bottom"
+                            data-html="true"
+                            class="img-responsive"
+                            data-content="There are more than 1,500 kinds of tea from all around the world.<br/>Our understanding of the
+                        impact of tea on our body is widely unchartered territory. Every day researchers are trying to
+                        better understand tea&rsquo;s impact on the human body."
+                            src="../assets/images/pages/tea_info/tea_tl.png"
+                            alt="Photo of tea leaves"/>
+                </div>
+                <div class="col-sm-6 ">
+                    <img
+                            class="img-responsive"
+                            data-toggle="popover"
+                            data-placement="bottom"
+                            data-html="true"
+                            data-content="BLACK TEA &ndash; think orange pekoe, earl grey, and chai<br/>
+                        GREEN TEA &ndash; think any green tea, and matcha<br/>
+                        HERBAL TEA &ndash; think chamomile, peppermint, and rooibos"
+                            src="../assets/images/pages/tea_info/tea_tr.png"
+                            alt="Photo of tea leaves in a strainer"/>
+                </div>
+
+            </div>
+            <div class="row tea__second__row">
+                <h2>Tea Leaves</h2>
+                <h4>The many benefits in a cup of tea</h4>
+                <h6>Click on images to see the info</h6>
+
+            </div>
+            <div class="row tea__third__row">
+                <div class="col-sm-3 ">
+                    <img
+                            class="img-responsive"
+                            data-toggle="popover"
+                            data-placement="top"
+                            data-html="true"
+                            title="BLACK TEA "
+                            data-content="Can be helpful in improving mental alertness and cognitive capacity."
+                            src="../assets/images/pages/tea_info/tea_black.png"
+                            alt="Close up photo of black tea leaves"/>
+                </div>
+                <div class="col-sm-3 ">
+                    <img
+                            class="img-responsive"
+                            data-toggle="popover"
+                            data-placement="top"
+                            data-html="true"
+                            title="GREEN TEA"
+                            title="PEPPERMINT TEA"
+                            data-content="Can boost your level of attention and alertness because of two compounds, thenanine and
+                        caffeine. Not only can green tea wake you up, but it&rsquo;s less likely to make you anxious
+                        because it has lower levels of caffeine than coffee."
+                            src="../assets/images/pages/tea_info/tea_green.png"
+                            alt="Close up photo of black tea leaves"/>
+                </div>
+                <div class="col-sm-3 ">
+                    <img
+                            class="img-responsive"
+                            data-toggle="popover"
+                            data-placement="top"
+                            title="PEPPERMINT TEA"
+                            data-html="true"
+                            data-content="Can improve irritable bowel syndrome related symptoms (think distention, abdominal
+                        pain, flatulence, and bowel movements)."
+                            src="../assets/images/pages/tea_info/tea_mint.png"
+                            alt="Photo of chamomile flowers"/>
+                </div>
+                <div class="col-sm-3 ">
+                    <img
+                            data-toggle="popover"
+                            data-placement="top"
+                            title="CHAMOMILE TEA"
+                            data-html="true"
+                            class="img-responsive"
+                            data-content="May increase glycine in your body. Glycine is a chemical that relaxes your nerves
+                        and muscles and acts as a mild sedative."
+                            src="../assets/images/pages/tea_info/tea_chamomile.png"
+                            alt="Photo of chamomile flowers"/>
+                    <p></p>
+                </div>
+            </div>
+        </section>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+                crossorigin="anonymous"></script>
+        <script>
+            jQuery(document).ready(function ($) {
+                $.getScript('https://code.jquery.com/jquery-3.2.1.js', function () {
+                    $('#tea__info').on('click', function (e) {
+                        $('[data-toggle="popover"],[data-original-title]').each(function () {
+                            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                                (($(this).popover('hide').data('bs.popover') || {}).inState || {}).click = false
+                            }
+                        });
+                    });
+                    $('[data-toggle="popover"]').popover();
+                });
+            });
+        </script>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <style>
+
+    </style>
+</head>
+<body style="
+  background: #F7F7F7;
+">
+<div class="page__overlay" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 1170px;">
+    <div class="container">
+        <section id="arboretum-360" class="video__template fitness__template">
+            <div class="side__heading">
+                <div class="side__heading__content">
+                    <h3>Video</h3>
+                    <img src="../assets/images/global/video-camera.svg" alt="" class="img-responsive">
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="video__container">
+                    <div class="player">
+                        <div class="play__overlay"></div>
+                        <div id="video360Container"></div>
+                        <div class="player__controls" style="opacity: 0;">
+                            <div class="play__btn">
+                                <a class="player__button toggle">
+                                    <svg class="SVGInline-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 7 6" style="enable-background:new 0 0 7 6;" xml:space="preserve"><path d="M0,6l7-3L0,0C0,0,0,6,0,6z"></path></svg>
+                                </a>
+                            </div>
+                            <div class="progress__container">
+                                <div class="progress">
+                                    <div class="progress__filled"></div>
+                                </div>
+                            </div>
+                            <div class="volume__range">
+                                <input type="range" name="volume" class="player__slider" min="0" max="1" step="0.05"
+                                       value="1">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="video__template__content">
+                    <div class="page__header video__template__content__header">
+                        <h1>A meditative walk through Humber&#39;s urban ecosystem</h1>
+                        <h5>360 experience</h5>
+                    </div>
+                    <hr>
+                    <p>Nature is the most accessible fitness center in the world. Good for your mind, heart and soul,
+                        take a walk in Humber&#39;s Arboretum, look around and learn a little bit about what fresh air
+                        can do for your health.</p>
+
+                    <!-- <a class="button-hover draw-border">Download the recipe </a> -->
+                </div>
+            </div>
+            <audio id="profile__loop"  loop>
+                <!--<source src="johann_sebastian_bach_air.ogg">-->
+                <source src="../assets/media/audio/pages/arboretum/arboretum-bg-loop.mp3">
+            </audio>
+        </section>
+        <script>
+            jQuery(document).ready(function($) {
+                $.getScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js', function() {
+
+                    const VIDEO_SOURCE = "../assets/media/video/pages/arboretum/arboretum_360.mp4";
+
+                    var camera, scene, renderer, video;
+
+                    var texture_placeholder,
+                        isPlaying = false;
+                    isUserInteracting = false,
+                        isMouseInsideVideo = false,
+                        longitude = 0,
+                        clickLongitude = 0,
+                        latitude = 0,
+                        clickLatitude = 0,
+                        phi = 0,
+                        theta = 0,
+                        clickPointerX = 0,
+                        clickPointerY = 0,
+                        distance = 500,
+                        videoWidth = 640, // main size of video
+                        videoHeight = 360; // main size of video
+
+                    init();
+                    animate();
+
+                    function init() {
+                        var container = document.getElementById('video360Container');
+
+                        camera = new THREE.PerspectiveCamera(75, videoWidth / videoHeight, 1, 1100);
+                        camera.target = new THREE.Vector3(0, 0, 0);
+
+                        scene = new THREE.Scene();
+
+                        var geometry = new THREE.SphereBufferGeometry(500, 60, 40);
+                        geometry.scale(-1, 1, 1);
+
+                        video = document.createElement('video');
+                        video.id = "360-vid";
+                        video.width = 640;
+                        video.height = 360;
+                        video.loop = true;
+                        video.setAttribute('crossorigin', 'anonymous');
+                        video.src = VIDEO_SOURCE;
+
+                        var texture = new THREE.VideoTexture(video);
+                        texture.minFilter = THREE.LinearFilter;
+                        texture.format = THREE.RGBFormat;
+
+                        var material = new THREE.MeshBasicMaterial({ map : texture });
+                        var mesh = new THREE.Mesh(geometry, material);
+
+                        scene.add(mesh);
+
+                        renderer = new THREE.WebGLRenderer();
+                        renderer.setPixelRatio(window.devicePixelRatio);
+                        renderer.setSize(videoWidth, videoHeight);
+
+                        container.appendChild(renderer.domElement);
+                        document.addEventListener('mousedown', onMouseDown, false);
+                        document.addEventListener('mousemove', onMouseMove, false);
+                        document.addEventListener('mouseup', onMouseUp, false);
+                        window.addEventListener('resize', onWindowResize, false);
+                        container.addEventListener('mouseover', onMouseEnter, false);
+                        container.addEventListener('mouseout', onMouseLeave, false);
+                    }
+
+                    function animate() {
+                        requestAnimationFrame(animate);
+                        update();
+                    }
+
+                    function update() {
+                        latitude = Math.max(-85, Math.min(85, latitude));
+                        phi = THREE.Math.degToRad(90 - latitude);
+                        theta = THREE.Math.degToRad(longitude);
+
+                        camera.position.x = distance * Math.sin(phi) * Math.cos(theta);
+                        camera.position.y = distance * Math.cos(phi);
+                        camera.position.z = distance * Math.sin(phi) * Math.sin(theta);
+                        camera.lookAt(camera.target);
+                        camera.position.copy(camera.target).negate();
+
+                        renderer.render(scene, camera);
+                    }
+
+                    function onMouseDown(e) {
+                        if (isMouseInsideVideo == true && !video.paused) {
+                            e.preventDefault();
+
+                            isUserInteracting = true;
+
+                            clickPointerX = e.clientX;
+                            clickPointerY = e.clientY;
+
+                            clickLongitude = longitude;
+                            clickLatitude = latitude;
+                        }
+                    }
+
+                    function onMouseMove(e) {
+                        if (isUserInteracting === true) {
+                            longitude = (clickPointerX - e.clientX) * 0.1 + clickLongitude;
+                            latitude = (clickPointerY - e.clientY) * 0.1 + clickLatitude;
+                        }
+                    }
+
+                    function onMouseUp(e) {
+                        isUserInteracting = false;
+                    }
+
+                    function onMouseEnter() {
+                        isMouseInsideVideo = true;
+                    }
+
+                    function onMouseLeave() {
+                        isMouseInsideVideo = false;
+                    }
+
+                    function onWindowResize() {
+                        camera.aspect = videoWidth / videoHeight;
+                        camera.updateProjectionMatrix();
+
+                        renderer.setSize(videoWidth, videoHeight);
+                    }
+
+
+                    const player = document.querySelector('.player');
+                    const videoContainer = player.querySelector('#video360Container');
+                    const progress = player.querySelector('.progress');
+                    const progressBar = player.querySelector('.progress__filled');
+                    const toggle = player.querySelector('.toggle');
+                    const skipButtons = player.querySelectorAll('[data-skip]');
+                    const ranges = player.querySelectorAll('.player__slider');
+
+
+
+
+                    /* Build out functions */
+                    function togglePlay() {
+
+
+                        $(".play__overlay").css('display', 'none');
+                        $(".player__controls").animate({
+                            opacity: 1
+                        }, 1000, function () {
+
+                        });
+
+                        videoContainer.removeEventListener('click', togglePlay, false);
+
+                        const method = video.paused ? 'play' : 'pause';
+                        video[method]();
+                    }
+
+                    var clsBtn = $("#close");
+                    clsBtn.click(function() {
+                        console.log(video);
+                        video.pause();
+
+                        /*$("#360-vid").remove();*/
+
+
+                    });
+
+                    function updateButton() {
+
+                        if (video.paused) {
+                            toggle.innerHTML = '<svg class="SVGInline-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 7 6" style="enable-background:new 0 0 7 6;" xml:space="preserve"><path d="M0,6l7-3L0,0C0,0,0,6,0,6z"></path></svg>';
+
+                        } else {
+                            toggle.innerHTML = '<svg class="SVGInline-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 7 9" style="enable-background:new 0 0 7 9;" xml:space="preserve"><path d="M5,0v9h2V0H5z M0,9h2V0H0V9z"></path></svg>';
+                        }
+
+                    }
+
+                    function skip() {
+                        video.currentTime += parseFloat(this.dataset.skip);
+                    }
+
+                    function handleRangeUpdate() {
+                        video[this.name] = this.value;
+                    }
+
+                    function handleProgress() {
+                        const percent = (video.currentTime / video.duration) * 100;
+                        progressBar.style.width = percent + '%';
+                    }
+
+                    function scrub(e) {
+                        const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+                        video.currentTime = scrubTime;
+                    }
+
+                    /* Hook up the event listners */
+                    videoContainer.addEventListener('click', togglePlay);
+                    video.addEventListener('play', updateButton);
+                    video.addEventListener('pause', updateButton);
+                    video.addEventListener('timeupdate', handleProgress);
+
+                    toggle.addEventListener('click', togglePlay);
+                    skipButtons.forEach(button => button.addEventListener('click', skip));
+                    ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
+                    ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
+
+                    let mousedown = false;
+                    progress.addEventListener('click', scrub);
+                    progress.addEventListener('mousemove', (e) => mousedown && scrub(e));
+                    progress.addEventListener('mousedown', () => mousedown = true);
+                    progress.addEventListener('mouseup', () => mousedown = false);
+
+                });
+            });
+        </script>
+    </div>
+</div>
+
+
+
+</body>
+</html>

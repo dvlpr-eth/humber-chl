@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body style="
+    background: #F7F7F7;
+">
+<div class="page__overlay" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 1170px;">
+    <div class="container">
+        <section id="h2o_facts__main" class="nutrition__template">
+            <div class="side__heading">
+                <div class="side__heading__content">
+                    <h3>Interactive</h3>
+                    <img src="../assets/images/global/icon_interactive.png" alt="" class="img-responsive">
+                </div>
+            </div>
+            <div class="page__header">
+                <h1>What About Water?</h1>
+                <h5>Take this quiz and test your knowledge on the essence of life</h5>
+            </div>
+
+            <div id="h2o_facts__centercol">
+
+                <div id="h2o_facts__centertext">
+                    <div class="quiz__container">
+                    <h4 id="h2o_facts__headingout">True or False</h4>
+                    <div id="h2o_facts__textout"></div>
+                    <div id="h2o__facts__buttonwrap">
+                        <div id="h2o_facts__true" data-bool="1" class="h2o_facts__button"></div>
+                        <div id="h2o_facts__false" data-bool="0" class="h2o_facts__button"></div>
+                        <button id="h20_facts__next">NEXT</button>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+            <audio id="h2o_facts_audio">
+                <source src="../assets/media/audio/pages/h2o_facts/h2o_facts_complete.mp3" type="audio/mpeg">
+            </audio>
+        </section>
+        <script>
+            jQuery(document).ready(function ($) { /*NOTE: Your code will be minified to one line, so do not use double slashes // for comments, use block comments.*/
+                /*Grab needed DOM elemets*/
+                /*Output for heading & question*/
+                const question = document.querySelector('#h2o_facts__textout');
+                const heading = document.querySelector('#h2o_facts__headingout');
+                /*true,false,next buttons*/
+                const nextBtn = document.querySelector('#h20_facts__next');
+                const trueFalseBtns = document.querySelectorAll('.h2o_facts__button');
+                /*audio*/
+                const audio = document.querySelector('#h2o_facts_audio');
+                /*Objects for questions*/
+                function Question(question, answer, feedback) {
+                    this.question = question;
+                    this.answer = answer;
+                    this.feedback = feedback;
+                }
+
+                const question1 = new Question("Water breaks down food so your body can absorb its nutrients.", true, "True: Water breaks down food so your body can absorb its nutrients.");
+                const question2 = new Question("A person can live for a month without food, but only a week without water.", true, "True: A person can live for a month without food, but only a week without water.");
+                const question3 = new Question("90 per cent of your water intake comes from the beverages you drink, none comes from the food you eat.", false, "False: 80 per cent of your water intake comes from the beverages you drink, the other 20 per cent comes from the food you eat.");
+                const question4 = new Question("The feeling of thirstiness is actually a symptom of dehydration.", true, "True: The feeling of thirstiness is actually a symptom of dehydration.");
+                const question5 = new Question("You must drink eight glasses of water a day to be healthy.", false, "False: Your recommended water intake is actually dependent on your age, gender, and level of physical activity.");
+                /*Array holding questions*/
+                const questionArr = [question1, question2, question3, question4, question5];
+                /*incrementer for index*/
+                let i = 0;
+                /*Correct & Incorrect messages */
+                const correctMsg = "Correct!";
+                const incorrectMsg = "Incorrect";
+                const wellDone = "Well Done!";
+                const trueFalse = "True or False";
+                const completeMsg = "You&#39;ve learned how important water is to your health and nutrition, why not celebrate with a cold glass of water?";
+                /*Logic*/
+                /*audio loop at to play at start*/
+                audio.src = '../assets/media/audio/pages/h2o_facts/water-001.wav';
+                audio.load();
+//        audio.play();
+                question.innerHTML = "<span>Question: </span>"+questionArr[i].question;
+                /*check the answer onclick of true or false*/
+                function checkAnswer() { /*TODO: check if the answer matches question*/
+                    if (parseInt(this.dataset.bool) == questionArr[i].answer) {
+                        heading.innerHTML = '';
+                        question.innerHTML = '<p>' + questionArr[i].feedback + '</p>';
+                        audio.src = '../assets/media/audio/pages/h2o_facts/h2o_facts_correct.mp3';
+                        audio.load();
+                        audio.play();
+                    } else {
+                        heading.innerHTML = '';
+                        question.innerHTML = '<p>' + questionArr[i].feedback + '</p>';
+                        audio.src = '../assets/media/audio/pages/h2o_facts/h2o_facts_incorrect.mp3';
+                        audio.load();
+                        audio.play();
+                    }
+                    /*Display next button*/
+                    nextBtn.style.display = 'block';
+                    /*Remove True/False buttons*/
+                    trueFalseBtns.forEach(button => button.style.display = 'none');
+                }
+
+                /*display next question onclick of next button*/
+                function nextQuestion() { /*Reset Heading*/
+                    heading.innerHTML = trueFalse;
+                    /*Display True/False buttons*/
+                    trueFalseBtns.forEach(button => button.style.display = 'inline-block');
+                    /*Remove Next Button*/
+                    nextBtn.style.display = 'none';
+                    /*Display Next Question in Array*/
+                    if (i < questionArr.length - 1) {
+                        i++;
+                        question.innerHTML = "<span>Question: </span>" +questionArr[i].question;
+                    } else {
+                        i = 0;
+                        heading.innerHTML = wellDone;
+                        question.innerHTML = '<p>' + completeMsg + '</p>';
+                        trueFalseBtns.forEach(button => button.style.display = 'none');
+                        audio.src = '../assets/media/audio/pages/h2o_facts/h2o_facts_complete.mp3';
+                        audio.load();
+                        audio.play();
+                    }
+                }
+
+                /*Event Listeners*/
+                trueFalseBtns.forEach(button => button.addEventListener('click', checkAnswer));
+                nextBtn.addEventListener('click', nextQuestion);
+            });
+        </script>
+    </div>
+</div>
+
+</body>
+</html>

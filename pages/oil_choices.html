@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script
+            src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
+</head>
+<body style="
+    background: #F7F7F7;
+">
+<div class="page__overlay" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 1170px;">
+    <div class="container">
+
+        <section id="oil_choices__main" class="nutrition__template">
+            <div class="side__heading">
+                <div class="side__heading__content">
+                    <h3>Interactive</h3>
+                    <img src="../assets/images/global/icon_interactive.png" alt="" class="img-responsive">
+                </div>
+            </div>
+            <div class="page__header">
+                <h1>Cooking with oil</h1>
+                <h5>What you didn't know</h5>
+            </div>
+            <div id="oil_myModal" class="oil_modal">
+                <div class="oil_modal__header"><span class="oil_button__close">&times;</span></div>
+                <div class="oil_modal__content">
+                    <p class="oil_modal__text">Before you begin cooking with oil, there are two main characteristics of
+                        all oils you should understand: the composition of fat, and the smoke point (the temperature at
+                        which oils start to break down, lose nutrients, and flavour.)</p>
+                    <p class="oil_modal__text">Vegetable oils are composed of three different types of fat:
+                        monounsaturated fat, polyunsaturated fat, and saturated fat.</p>
+                    <p class="oil_modal__text">MONOUNSATURATED FATS are healthy fats naturally found in olive oil and
+                        canola oil. (PS. It's also found in avocados, and nuts.)</p>
+                    <p class="oil_modal__text">POLYUNSATURATED FATS are healthy fats that include omega-3 and omega-6
+                        fat. (Omega-3 is found in fatty fish like salmon and sardines.)</p>
+                    <p class="oil_modal__text">SATURATED FATS are an unhealthy fat naturally found in meat, higher fat
+                        milk, cheese, yogurt and tropical oils.</p>
+                </div>
+            </div>
+            <div id="oil_main__container">
+                <img alt="Frying pan" id="oil_img__pan"
+                                               src="../assets/images/pages/oil_choices/pan.png">
+                <div class="oil__res__container">
+                <span
+                    class="oil_pan__text">Drag a drop of oil to the pan to see<br/> how it fares in cooking.</span>
+                </div>
+                <div class="oil_drop__container oil_drop__flaxseed">
+                    <div><img alt="Flaxseed oil drop" class="oil_img__draggable" data-index="5" id="oil_img__flaxseed"
+                              src="../assets/images/pages/oil_choices/oil_flaxseed.png"> <span
+                            class="oil_img__label oil_label__left">Flaxseed</span></div>
+                </div>
+                <div class="oil_drop__container oil_drop__olive">
+                    <p><img alt="Olive oil drop" class="oil_img__draggable" data-index="0" id="oil_img__olive"
+                            src="../assets/images/pages/oil_choices/oil_olive.png"> <span
+                            class="oil_img__label">Olive</span></p>
+                </div>
+                <div class="oil_drop__container oil_drop__canola">
+                    <p><img alt="Canola oil drop" class="oil_img__draggable" data-index="1" id="oil_img__canola"
+                            src="../assets/images/pages/oil_choices/oil_canola.png"> <span class="oil_img__label">Canola</span>
+                    </p>
+                </div>
+                <div class="oil_drop__container oil_drop__seasame">
+                    <div><img alt="Seasame oil drop" class="oil_img__draggable" data-index="3" id="oil_img__seasame"
+                              src="../assets/images/pages/oil_choices/oil_seasame.png"> <span
+                            class="oil_img__label oil_label__left">Seasame</span></div>
+                </div>
+                <div class="oil_drop__container oil_drop__coconut">
+                    <p><img alt="Coconut oil drop" class="oil_img__draggable" data-index="4" id="oil_img__coconut"
+                            src="../assets/images/pages/oil_choices/oil_coconut.png"> <span class="oil_img__label">Coconut</span>
+                    </p>
+                </div>
+                <div class="oil_drop__container oil_drop__peanut">
+                    <p><img alt="Peanut oil drop" class="oil_img__draggable" data-index="2" id="oil_img__peanut"
+                            src="../assets/images/pages/oil_choices/oil_peanut.png"> <span
+                            class="oil_img__label">Peanut</span></p>
+                </div>
+            </div>
+            <audio id="oil_choices__audio">
+                <source src="../assets/media/audio/pages/oil_choices/sizzle-sfx.wav" type="audio/mpeg">
+            </audio>
+        </section>
+        <script>
+            jQuery(document).ready(function ($) { /*grab audio element for sizzle*/
+                const audio = document.querySelector('#oil_choices__audio');
+                const fryingPan = document.querySelector('#oil_img__pan');
+                const span = document.querySelector('.oil_pan__text');
+                /*grab modal to toggle display*/
+                const modal = document.querySelector('.oil_modal');
+                /*grab modal close button*/
+                const modalCloseBtn = document.querySelector('.oil_button__close');
+                /*display modal on pageload*/
+                function displayModal() {
+                    $("#oil_myModal").fadeIn();
+                }
+
+                /*close modal when close clicked*/
+                function closeModal() {
+                    $("#oil_myModal").fadeOut();
+                }
+
+                /*array for oil info*/
+                const oilArray = ['<dl>' + '<dt>' + "OLIVE OIL" + '</dt>' + '<dd class="oil_dd__margin">' + "Commonly used for:  sauteing, frying, and salad dressings." + '</dd>' + '<dd>' + "75 per cent monounsaturated fat" + '</dd>' + '<dd>' + "11 per cent polyunsaturated fat" + '</dd>' + '<dd>' + "14 per cent saturated fat" + '</dd>' + '<dd>' + " 410 degrees F smoke point." + '</dd>' + '</dl>', '<dl>' + '<dt>' + "CANOLA OIL" + '</dt>' + '<dd class="oil_dd__margin">' + "Commonly used for: sauteing, pan frying, and baking." + '</dd>' + '<dd>' + "64 per cent monounsaturated fat" + '</dd>' + '<dd>' + "29 per cent polyunsaturated fat" + '</dd>' + '<dd>' + "8 per cent saturated fat" + '</dd>' + '<dd>' + "400 degrees F smoke point." + '</dd>' + '</dl>', '<dl>' + '<dt>' + "PEANUT OIL" + '</dt>' + '<dd class="oil_dd__margin">' + "Commonly used for: deep-frying, roasting, and grilling." + '</dd>' + '<dd>' + "49 per cent monounsaturated fat" + '</dd>' + '<dd>' + " 33 per cent polyunsaturated fat" + '</dd>' + '<dd>' + "18 per cent saturated fat" + '</dd>' + '<dd>' + "450 degrees F smoke point." + '</dd>' + '</dl>', '<dl>' + '<dt>' + "SESAME OIL" + '</dt>' + '<dd class="oil_dd__margin">' + "salad dressings, dips, marinades, or as a drizzle." + '</dd>' + '<dd>' + "41 per cent monounsaturated fat" + '</dd>' + '<dd>' + "44 per cent polyunsaturated fat" + '</dd>' + '<dd>' + "15 per cent saturated fat" + '</dd>' + '<dd>' + "350-410 degrees F smoke point." + '</dd>' + '</dl>', '<dl>' + '<dt>' + "COCONUT OIL" + '</dt>' + '<dd class="oil_dd__margin">' + "Commonly used for: baking." + '</dd>' + '<dd>' + "6 per cent monounsaturated fat" + '</dd>' + '<dd>' + "2 per cent polyunsaturated fat" + '</dd>' + '<dd>' + "92 per cent saturated fat" + '</dd>' + '<dd>' + "350 degrees F smoke point." + '</dd>' + '</dl>', '<dl>' + '<dt>' + "FLAXSEED OIL" + '</dt>' + '<dd class="oil_dd__margin">' + "Commonly used for: smoothies and dressings." + '</dd>' + '<dd>' + "18 per cent monounsaturated fat" + '</dd>' + '<dd>' + "73 per cent polyunsaturated fat" + '</dd>' + '<dd>' + "9 per cent saturated fat" + '</dd>' + '<dd>' + "225 degrees F smoke point." + '</dd>' + '</dl>'];
+
+                $('.oil_img__draggable').draggable({
+                    revert: true,
+                    revertDuration: 300,
+                    cursor: 'move'
+                });
+                $('#oil_img__pan').droppable({
+                    zIndex: 0,
+                    drop: handleDrop
+                });
+
+                function handleDrop(e, ui) {
+                    audio.play();
+                    let dragged = parseInt(ui.draggable.attr('data-index'));
+                    /*remove existing class*/
+                    span.classList = '';
+                    /*add class to align text properly*/
+                    if (dragged === 3) {
+                        span.classList.add('oil_pan__textseas');
+                    } else if (dragged === 4) {
+                        span.classList.add('oil_pan__textcoco');
+                    } else if (dragged === 5) {
+                        span.classList.add('oil_pan__textflax');
+                    } else {
+                        span.classList.add('oil_pan__textleft');
+                    }
+                    span.innerHTML = oilArray[dragged];
+                }
+
+                /*listen for onload*/
+                window.onload = displayModal;
+                /*listen for close clicked*/
+                modalCloseBtn.addEventListener('click', closeModal);
+            });
+        </script>
+    </div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <style>
+
+    </style>
+</head>
+<body style="
+    background: #F7F7F7;
+">
+<div class="page__overlay" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 1170px;">
+    <div class="container">
+        <section id="mywhy" class="behaviour__template">
+            <div class="side__heading">
+                <div class="side__heading__content">
+                    <h3>Audio</h3>
+                    <img src="../assets/images/global/audio-icon.png" alt="" class="img-responsive">
+                </div>
+            </div>
+            <div class="page__header">
+                <h1>Know Your Why</h1>
+                <h5>Finding the motivation for a healthy life</h5>
+            </div>
+            <div class="mywhy__container">
+                <div class="mywhy__audio-player">
+                    <div class="audio__player">
+                        <div id="mywhy_audio"></div>
+                    </div>
+                </div>
+
+
+                <div class="mywhy__audio-res">
+                    <div id="mywhy__audio-description"></div>
+                </div>
+                <div class="mywhy__texts">
+                    <p class="mywhy__text">"My temple is my body, it's on lend to me and so my reponsibility is to take
+                        care
+                        of
+                        it."</p>
+                    <p class="mywhy__text">"My why is, I just want to feel better, like that's kind of the bottom line.
+                        I
+                        just
+                        want to feel better."</p>
+                    <p class="mywhy__text"> "You can have money, you can have glory, you can have fame, but if you don't
+                        have
+                        health, all those things quickly become meaningless." </p>
+                    <p class="mywhy__text">"I feel as though there's always room for improvement."</p>
+
+                    <div id="bod_cb_1" class="bod_pod_image" >
+                        <img class="bod_img "src="../assets/images/pages/mywhy/mywhy_t.jpg"
+                             alt="Photo of Clare's head inside the Bod Pod."/>
+                    </div>
+
+                    <div id="bod_cb_2" class="bod_pod_image" >
+                        <img class="bod_img " src="../assets/images/pages/mywhy/mywhy_play_button.jpg"
+                             alt="Photo of Clare and JD assessing the results of her Bod Pod test."/>
+                    </div>
+
+                    <div id="bod_cb_3" class="bod_pod_image" >
+                        <img class="bod_img " src="../assets/images/pages/mywhy/mywhy_l.jpg"
+                             alt="Photo of the Bod Pod."/>
+                    </div>
+
+                    <div id="bod_cb_4" class="bod_pod_image" >
+                        <img class="bod_img " src="../assets/images/pages/mywhy/mywhy_r.jpg"
+                             alt="Photo of Clare before entering the Bod Pod."/>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+        <script src="../pages-vendors/audio-player.js"></script>
+        <script>
+            jQuery(document).ready(function ($) {
+                $.getScript('https://www.gstatic.com/firebasejs/4.1.5/firebase.js', function () {
+                initPlayer('#mywhy_audio', {
+                    audioSrc: '../assets/media/audio/pages/mywhy/my-why.mp3',
+                    imageSrc: '../assets/images/pages/meditation-timer/bodyscan.jpg',
+                    title: 'My why',
+                    description: 'Click play to find out'
+                }, {
+                    on: true,
+                    lineColor: '#3f2f7d'
+                });
+                var why_audio = window.audioFile;
+
+                console.log(why_audio);
+
+                /*Initialize Firebase*/
+                var firebaseConfig = {
+                    apiKey: "AIzaSyDej4PQCAKansvr7roC_71yq69F9ZIKppg",
+                    authDomain: "txm2017-2fa87.firebaseapp.com",
+                    databaseURL: "https://txm2017-2fa87.firebaseio.com",
+                    projectId: "txm2017-2fa87",
+                    storageBucket: "txm2017-2fa87.appspot.com",
+                    messagingSenderId: "941999093820"
+                };
+                firebase.initializeApp(firebaseConfig);
+
+                (function () { /*FIREBASE*/
+                    var mywhyDb = firebase.database();
+                    /*END FIREBASE*/
+
+
+                    $(".mywhy__text").css("opacity", 0);
+
+                    var myWhyTextIndex = 0;
+
+
+                    function addImages(divID) {
+                        var thisDiv = document.getElementById(divID);
+                        if (thisDiv.className != "bod_pod_image fadeIn") {
+                            thisDiv.className += ' fadeIn';
+
+                        }
+                    }
+
+                    function checkCurrentTime() {
+                        console.log(why_audio.currentTime);
+                        addImages('bod_cb_1');
+                        if (why_audio.currentTime > 3) {
+                            addImages('bod_cb_2');
+                        }
+                        if (why_audio.currentTime > 5) {
+                            addImages('bod_cb_3');
+                        }
+                        if (why_audio.currentTime > 6) {
+                            addImages('bod_cb_4');
+                        }
+
+                    }
+                    why_audio.ontimeupdate = checkCurrentTime;
+
+                    $(why_audio).on("play", function () {
+                        displayMywhyData(".mywhy__text", 4);
+                        checkCurrentTime();
+                        var myWhyTextInterval = setInterval(function () {
+                            if (myWhyTextIndex < document.getElementsByClassName("mywhy__text").length) {
+                                console.log("show");
+                                $(".mywhy__text").eq(myWhyTextIndex).fadeTo(800, 1);
+                                myWhyTextIndex++;
+                            } else {
+                                console.log("end");
+                                clearInterval(myWhyTextInterval);
+                            }
+                        }, 3000);
+
+                    });
+
+
+
+                    $(why_audio).on("ended", function () {
+                        $("#mywhy__audio-description").hide();
+                        $("#mywhy__audio-description").html('<h3 style="color: black; margin-left: 10px;">Whats your why?</h3><form id="mywhy__form" class="text-right"><textarea id="mywhy__textarea" rows="" cols="" placeholder="Describe your why here..."></textarea><div class="text-right"><input type="submit" name="mywhy__submit" value="SUBMIT" ></div></form>');
+                        $("#mywhy__audio-description").fadeIn(800);
+                        $("#mywhy__form").submit(function () {
+                            var mywhyTextareaValue = '" '+$("#mywhy__textarea").val()+' "';
+
+                            if (mywhyTextareaValue.trim() != "" && mywhyTextareaValue.trim() != null) {
+                                addMywhy(mywhyTextareaValue);
+                                $("#mywhy__audio-description").html("<h4 style='margin-left: 10px;'>Sent!</h4>");
+                                displayMywhyData(".mywhy__text", 4);
+                            }
+                            return false;
+                        });
+                    });
+
+                    function addMywhy(text) {
+                        var timestampNow = Date.now();
+                        mywhyDb.ref('mywhy/' + timestampNow).set({
+                            approved: false,
+                            userInput: text
+                        });
+
+                        console.log(text);
+                        $(".mywhy__text").eq(3).html(text);
+                    }
+
+                    function displayMywhyData(elems, limitNum) { /*Get mywhy data*/
+                        mywhyDb.ref('mywhy/').limitToLast(limitNum).once('value', function (snap) {
+                            var mywhyIndex = 0;
+                            snap.forEach(function (child) {
+                                var approvedContent = child.val().approved;
+                                if (approvedContent) {
+                                    var userInput = child.val().userInput;
+                                    $(elems).eq(mywhyIndex).html(userInput);
+                                    mywhyIndex++;
+                                }
+                            });
+                        });
+                    }
+                })();
+                });
+            });
+        </script>
+    </div>
+</div>
+
+
+</body>
+</html>
+

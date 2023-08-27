@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>block_name</title>
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Roboto" rel="stylesheet">
+    <!-- Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body style=" background: #F7F7F7;">
+
+<!-- block_name SECTION -->
+<div class="page__overlay" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 1170px;">
+    <div class="container">
+
+        <section id="healthy_locations__main" class="behaviour__template">
+            <div class="side__heading">
+                <div class="side__heading__content">
+                    <h3>Infographic</h3>
+                    <img src="../assets/images/global/infographic_icon.png" alt="" class="img-responsive">
+                </div>
+            </div>
+            <div class="page__header">
+                <h1>Healthy locations</h1>
+                <h5>Wherever you are there is always an opportunity to be in nature.
+                </h5>
+                <p>We visited five conservation areas in the Greater Toronto Area to talk about how these places have
+                    influenced and inspired mindful living.</p>
+            </div>
+
+
+            <div class="row healty_locations__slideshow_box">
+
+                <div class="healthy_locations__slideshow_images">
+                    <img src="../assets/images/pages/healthy-locations/local_hilton_thumb.jpg" alt=""
+                         class="healthy_locations_thumbnail" id="hilton"/>
+                    <img src="../assets/images/pages/healthy-locations/local_kelso_thumb.jpg" alt=""
+                         class="healthy_locations_thumbnail" id="kelso"/>
+                    <img src="../assets/images/pages/healthy-locations/local_jack_thumb.jpg" alt=""
+                         class="healthy_locations_thumbnail" id="jack"/>
+                    <img src="../assets/images/pages/healthy-locations/local_rattlesnake_thumb.jpg" alt=""
+                         class="healthy_locations_thumbnail" id="rattlesnake"/>
+                    <img src="../assets/images/pages/healthy-locations/local_scarboroughbluffs_thumb.jpg" alt=""
+                         class="healthy_locations_thumbnail" id="scarboroughbluffs"/>
+                </div>
+                <div class="healthy_locations__slideshow_big-image">
+                    <img src="../assets/images/pages/healthy-locations/local_hilton.jpg" alt=""
+                         class="healthy_locations_bigImage" id="slides" slidesjs-index="0"/>
+
+                    <div class="healthy_locations__slideshow_text">
+                        <h3 id="healthy_locations__header_text">Hilton Falls</h3>
+                        <div class="play__overlay">
+                            <p id="healthy_locations__desc_text">The Hilton Falls have a lot to offer any adventurous
+                                soul:
+                                a tranquil reservoir, rivers, and the breathtaking falls. There are also three bike-only
+                                trails that
+                                range from novice level to challenging hidden within the conservation area.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+        <script>
+            jQuery(document).ready(function($){
+
+                var bigImage = document.getElementById('slides');
+                var headerText = document.getElementById('healthy_locations__header_text');
+                var descText = document.getElementById('healthy_locations__desc_text');
+                var healthyAudio = document.getElementById('healthy_locations_audio');
+                /*image header text*/
+                var imageHeader = ['Hilton Falls','Kelso Conservation Area','Jack Darling Park','Rattlesnake Point Conservation Area','Scarborough Bluffs'];
+                /*image location array*/
+                var imageLocation = ['../assets/images/pages/healthy-locations/local_hilton.jpg',
+                    '../assets/images/pages/healthy-locations/local_kelso.jpg',
+                    '../assets/images/pages/healthy-locations/local_jack.jpg',
+                    '../assets/images/pages/healthy-locations/local_rattlesnake.jpg',
+                    '../assets/images/pages/healthy-locations/local_scarboroughbluffs.jpg'];
+                /*image description array*/
+                var imageDesc = ['The Hilton Falls have a lot to offer any adventurous soul:a tranquil reservoir\
+				   , rivers, and the breathtaking falls. There are also three bike-only trails that range from novice level\
+				    to challenging hidden within the conservation area.'
+                    ,
+                    'Kelso is a labyrinth of hiking and biking trails accompanied with a reservoir\
+                    open for swimming, paddle boarding, canoeing, and boating. Kelso transforms into a ski \
+                    hill with 15 runs and three terrain parks once snow begins to fall.'
+                    ,
+                    'Jack Darling Park is a park with a waterfront view of Toronto. \
+                    The park offers: open areas, trails, hills, beaches, and the largest fenced dog park in all of Ontario.'
+                    ,
+                    'In every season, Rattlesnake Point offers a view of the Niagara Escarpment \
+                    unlike any other. Rattlesnake Point has four trails, 17 campsites, three designated areas for rock \
+                    climbing, and weekly yoga classes in the park.'
+                    ,
+                    'There are 11 parks scattered along the Scarborough Bluffs. \
+                    Each park boasts a view of the bluffs, Lake Ontario, trails, beaches, and gardens. \
+                    The Scarborough Bluffs became a significant geological feature thanks to two natural processes: \
+                    years of sedimentary deposits from Lake Ontario combined with wind and water erosion.'];
+
+
+
+                $('.healthy_locations_thumbnail').on('click', function(){
+
+                    switch(this.id){
+                        case "hilton":
+                            bigImage.src = imageLocation[0];
+                            headerText.innerHTML = imageHeader[0];
+                            descText.innerHTML = imageDesc[0];
+                            break;
+                        case "kelso":
+                            bigImage.src = imageLocation[1];
+                            headerText.innerHTML = imageHeader[1];
+                            descText.innerHTML = imageDesc[1];
+                            break;
+                        case "jack":
+                            bigImage.src = imageLocation[2];
+                            headerText.innerHTML = imageHeader[2];
+                            descText.innerHTML = imageDesc[2];
+                            break;
+                        case "rattlesnake":
+                            bigImage.src = imageLocation[3];
+                            headerText.innerHTML = imageHeader[3];
+                            descText.innerHTML = imageDesc[3];
+                            break;
+                        case "scarboroughbluffs":
+                            bigImage.src = imageLocation[4];
+                            headerText.innerHTML = imageHeader[4];
+                            descText.innerHTML = imageDesc[4];
+                            break;
+                        default:
+                            bigImage.src = imageLocation[0];
+                    }
+
+                });
+
+            });
+
+
+        </script>
+    </div>
+</div>
+</body>
+</html>

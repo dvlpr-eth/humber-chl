@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script src="../pages-vendors/audio-player.js"></script>
+</head>
+<body style="
+    background: #F7F7F7;
+">
+<div class="page__overlay" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 1170px;">
+    <div class="container">
+        <script src="../pages-vendors/audio-player.js"></script>
+        <section id="coffee_doc" class="nutrition__template">
+            <div class="side__heading">
+                <div class="side__heading__content">
+                    <h3>Audio</h3>
+                    <img src="../assets/images/global/audio-icon.png" alt="" class="img-responsive">
+                </div>
+            </div>
+            <div class="page__header">
+
+                <h1>Coffee Culture</h1>
+                <h5>Exploring perspectives on coffee consumption</h5>
+            </div>
+            <div id="coffee_doc-content">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>We sat down to unpack the complicated relationship between coffee and the people who
+                            drink it.</p>
+                        <div class="audio__player">
+                            <div id="introduction_audio"></div>
+                        </div>
+
+                    </div>
+                    <div id="coffee__bianca-stephen" class="col-sm-4 col-sm-offset-1">
+
+                        <div class="coffee__debate-container">
+                            <p>Explore a few perspectives on coffee, below.</p>
+
+                            <div class="audio__player">
+                                <div id="bianca_audio"></div>
+                            </div>
+
+                            <div class="audio__player">
+                                <div id="stephen_audio"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <input type="radio" name="coffee__vote" id="coffee__vote-yes" class="coffee__vote-radio"
+                       value="1">
+                <input type="radio" name="coffee__vote" id="coffee__vote-no" class="coffee__vote-radio"
+                       value="0">
+
+                <div id="coffee__vote-column" class="col-lg-12">
+                    <div class="col-sm-3 ">
+                        <p class="coffee__dov__subtitle">What are you drinking?</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="coffee__vote-label" for="coffee__vote-no">
+                            <p>Anything but coffee</p>
+                            <img class="coffee__vote-image" src="../assets/images/pages/coffee/icon_negative.png"
+                                 alt="X">
+                        </label>
+                        <label class="coffee__vote-label" for="coffee__vote-yes">
+                            <p>Only coffee</p>
+                            <img class="coffee__vote-image" src="../assets/images/pages/coffee/icon_positive.png"
+                                 alt="Checkmark">
+                        </label>
+                    </div>
+                    <div class="col-sm-6 vote__res">
+                        <div class="col-sm-6">
+                            <h4 id="coffee__vote-result-message">Here's how everyone responded</h4>
+                        </div>
+                        <div class="vote__res__yes">
+                            <div id="coffee__vote-display-yes" class="coffee__vote-display"></div>
+                        </div>
+                        <div class="vote__res__no">
+                            <div id="coffee__vote-display-no" class="coffee__vote-display"></div>
+                        </div>
+
+
+                    </div>
+                </div>
+        </section>
+        <script>
+
+            /*Initialize Firebase*/
+
+            jQuery(document).ready(function ($) {
+                $.getScript('https://www.gstatic.com/firebasejs/4.1.5/firebase.js', function () {
+
+                    var firebaseConfig = {
+                        apiKey: "AIzaSyDej4PQCAKansvr7roC_71yq69F9ZIKppg",
+                        authDomain: "txm2017-2fa87.firebaseapp.com",
+                        databaseURL: "https://txm2017-2fa87.firebaseio.com",
+                        projectId: "txm2017-2fa87",
+                        storageBucket: "txm2017-2fa87.appspot.com",
+                        messagingSenderId: "941999093820"
+                    };
+                    firebase.initializeApp(firebaseConfig);
+
+                    initPlayer('#introduction_audio', {
+                        audioSrc: '../assets/media/audio/pages/coffee/Coffee-Intro-v2.mp3',
+                        imageSrc: '../assets/images/pages/coffee/coffee_cl.jpg',
+                        title: 'Coffee',
+                        description: 'An Introduction.',
+                        color1: '#B4C43C',
+                        color2: '#C7E04C',
+                        color3: '#DDEC73'
+
+                    }, {
+                        on: true,
+                        lineColor: '#B4C43C'
+                    });
+                    initPlayer('#bianca_audio', {
+                        audioSrc: '../assets/media/audio/pages/coffee/Coffee-Bianca-v1.mp3',
+                        imageSrc: '../assets/images/pages/coffee/coffee_ct.jpg',
+                        title: 'Bianca Pettinaro',
+                        description: '',
+                        color1: '#B4C43C',
+                        color2: '#C7E04C',
+                        color3: '#DDEC73'
+
+                    }, {
+                        on: true,
+                        lineColor: '#B4C43C'
+                    });
+                    initPlayer('#stephen_audio', {
+                        audioSrc: '../assets/media/audio/pages/coffee/Coffee-Steve-v1.mp3',
+                        imageSrc: '../assets/images/pages/coffee/coffee_cb.jpg',
+                        title: 'Stephen Bonnyman',
+                        description: '',
+                        color1: '#B4C43C',
+                        color2: '#C7E04C',
+                        color3: '#DDEC73'
+
+                    }, {
+                        on: true,
+                        lineColor: '#B4C43C'
+                    });
+
+                    $("#coffee__bianca-stephen").hide();
+                    $("#coffee__vote-column").hide();
+
+
+                    $(".coffee__vote-display").hide();
+                    $(".vote__res").hide();
+                    $("#coffee__vote-result-message").hide();
+
+                    var played = false;
+                    $(window.allPlayersArray[0].player).on('click', function () {
+
+                        $("#coffee__bianca-stephen").fadeIn();
+                    });
+
+                    $("#bianca_audio .podcast__play").on('click', function () {
+                        if (played) {
+                            $("#coffee__vote-column").fadeIn();
+
+                        }
+                        played = true;
+                    });
+
+                    $("#stephen_audio .podcast__play").on('click', function () {
+                        if (played) {
+                            $("#coffee__vote-column").fadeIn();
+
+                        }
+                        played = true;
+                    });
+
+                    /*DB*/
+                    var coffeeDb = firebase.database();
+
+                    /*writeCoffeeData("1");*/
+                    $(".coffee__vote-label").click(function () {
+                        $(".vote__res").fadeIn();
+                        $("input[name='coffee__vote']").change(function () {
+                            console.log($("input[name='coffee__vote']:checked").val());
+                            var userCoffeeVote = $("input[name='coffee__vote']:checked").val();
+                            writeCoffeeData(userCoffeeVote);
+                        });
+
+                        tallyCoffeeData();
+                        $(".coffee__vote-label").unbind();
+                    });
+
+                    function tallyCoffeeData() {
+                        coffeeDb.ref('votes/').once('value', function (snap) {
+                            console.log("There are " + snap.numChildren() + " votes");
+                            var votes = $.parseJSON(JSON.stringify(snap.val()));
+
+                            var voteTotal = snap.numChildren();
+                            var voteCountYes = 0;
+                            var voteCountYesPercentage;
+                            var voteCountNo = 0;
+                            var voteCountNoPercentage;
+
+                            snap.forEach(function (child) {
+                                var key = child.key;
+                                /*The timestamp*/
+
+                                var value = child.val();
+                                var vote = value.vote;
+                                /*The vote object's value*/
+
+                                console.log(key);
+                                console.log(vote);
+
+                                if (vote == 1) {
+                                    voteCountYes++;
+                                }
+                                else {
+                                    voteCountNo++;
+                                }
+
+                                console.log("Yes votes total: " + voteCountYes);
+                                console.log("No votes total: " + voteCountNo);
+
+                                /*Time of vote*/
+                                var keyMilliseconds = new Date(parseInt(key));
+                                console.log(keyMilliseconds.toUTCString().split(' '));
+                                var voteHour = keyMilliseconds.toUTCString().split(' ')[4];
+                                console.log("Hour of vote GMT: " + voteHour);
+                            });
+
+                            voteCountYesPercentage = voteCountYes / voteTotal * 100;
+                            voteCountNoPercentage = voteCountNo / voteTotal * 100;
+
+                            console.log("Yes %: " + voteCountYesPercentage);
+                            console.log("No %: " + voteCountNoPercentage);
+
+                            displayCoffeeData("coffee__vote-display-yes", voteCountYes, voteCountYesPercentage, "");
+                            displayCoffeeData("coffee__vote-display-no", voteCountNo, voteCountNoPercentage, "");
+                        });
+                    }
+
+                    function writeCoffeeData(voteVal) {
+                        var timestampNow = Date.now();
+                        coffeeDb.ref('votes/' + timestampNow).set({
+                            vote: voteVal
+                        });
+                    }
+
+                    function displayCoffeeData(elem, voteRaw, votePercentage, message) {
+                        var divWidth = Math.floor(votePercentage) + "px";
+                        document.getElementById(elem).style.width = divWidth;
+                        document.getElementById(elem).insertAdjacentHTML('afterEnd', " " + Math.floor(votePercentage) + "% " + message + "(" + voteRaw + ")");
+
+                        $(".coffee__vote-display").fadeIn();
+                        $("#coffee__vote-result-message").fadeIn();
+                    }
+
+                });
+            });
+        </script>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+</head>
+<body style="
+    background: #F7F7F7;
+">
+<div class="page__overlay" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 1170px;">
+    <div class="container">
+        <script src="../pages-vendors/video-player.js"></script>
+        <section id="tasty__salami" class="video__template fitness__template">
+            <div class="side__heading">
+                <div class="side__heading__content">
+                    <h3>Video</h3> <img src="../assets/images/global/video-camera.svg" alt="" class="img-responsive">
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="video__container">
+                    <div class="player">
+                        <div class="play__overlay"></div>
+                        <video class="player__video viewer"
+                               poster="../assets/images/pages/mo-cap/mo-cap-poster.jpg"
+                               src="../assets/media/video/pages/mo-cap/mo-cap.mp4"></video>
+                        <div class="player__controls" style="opacity: 0;">
+                            <div class="play__btn">
+                                <a class="player__button toggle">
+                                    <svg class="SVGInline-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 7 6" style="enable-background:new 0 0 7 6;" xml:space="preserve">
+                                <path d="M0,6l7-3L0,0C0,0,0,6,0,6z"></path>
+                            </svg>
+                                </a>
+                            </div>
+                            <div class="progress__container">
+                                <div class="progress">
+                                    <div class="progress__filled"></div>
+                                </div>
+                            </div>
+                            <div class="volume__range">
+                                <input type="range" name="volume" class="player__slider" min="0" max="1" step="0.05"
+                                       value="1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 ">
+                <div class="video__template__content ">
+                    <div class="page__header video__template__content__header">
+                        <h1>Mo-Cap Skeleton</h1>
+                        <h5>This video was created using Qualysis, Humber’s state-of-the-art motion capture system</h5>
+                    </div>
+                    <hr>
+                    <p>Using digital markers attached to the runner, students create a wire frame of a moving person.
+                        Humber’s Fitness and Exercise Science Lab uses the system to study sports biomechanics and gait.
+                        Their analysis of the data gathered can then be used to make corrections to prevent injury and
+                        optimize performance. The Lab’s motion-capture system is just one of the cutting-edge tools
+                        Humber offers aspiring Fitness and Health professionals.</p></div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>
+

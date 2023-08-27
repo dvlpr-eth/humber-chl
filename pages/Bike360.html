@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body style="
+    background: #F7F7F7;
+">
+<div class="page__overlay" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 1170px;">
+    <div class="container">
+        <section id="fit_tips__main" class="fitness__template bike__video">
+            <div class="side__heading">
+                <div class="side__heading__content">
+                    <h3>Video</h3>
+                    <img src="../assets/images/global/video-camera.svg" alt="" class="img-responsive">
+                </div>
+            </div>
+            <div class="page__header">
+                <h1>Bike Time-Lapse</h1>
+                <h5>Experience the bike ride to and from the college</h5>
+            </div>
+            <div class="vids__container bike__video__container">
+                <div class="row">
+                    <div class="col-md-6" id="fit-tips__video1">
+                        <!--Video player -->
+                        <div class="play__overlay">
+                            <img src="../assets/images/pages/bike360/bike_north.jpg"
+                                 alt="image of pushups" class="fit-tips__video_image video-trigger"
+                                 id="fit-tips__pushups"/>
+                            <p>To Humber north campus</p>
+                        </div>
+                        <!--end of video player-->
+
+                    </div>
+                    <div class="col-md-6" id="fit-tips__video2">
+                        <!--Video player -->
+
+                        <div class="play__overlay">
+                            <img src="../assets/images/pages/bike360/bike_lake.jpg"
+                                 data-vid="../assets/media/video/pages/fit-tips/ProneYTs.mp4"
+                                 alt="image of pushups" class="fit-tips__video_image video-trigger"
+                                 id="fit-tips__prone"/>
+                            <p>To Humber lakeshore campus</p>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row top-buffer">
+                    <div class="col-md-6 col-md-offset-3" id="fit-tips__video3">
+                        <!--Video player -->
+                        <div class="play__overlay" style="left: auto;">
+                            <img src="../assets/images/pages/bike360/bike_city.jpg"
+                                 alt="image of pushups" class="fit-tips__video_image video-trigger"
+                                 id="fit-tips__glute"/>
+                            <p>To the city</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div id="vidBox">
+                <div id="videCont">
+                    <div class="video__container">
+                        <div class="player-vid">
+                            <video class="player__video viewer" id="demo">
+                                <source src="../assets/media/video/pages/fit-tips/Pushups.mp4"
+                                        id="source">
+                            </video>
+                            <div class="player__controls" style="opacity: 0;">
+                                <div class="play__btn">
+                                    <a class="player__button toggle">
+                                        <svg class="SVGInline-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 7 6" style="enable-background:new 0 0 7 6;" xml:space="preserve"><path d="M0,6l7-3L0,0C0,0,0,6,0,6z"></path></svg>
+                                    </a>
+                                </div>
+                                <div class="progress__container">
+                                    <div class="progress">
+                                        <div class="progress__filled"></div>
+                                    </div>
+                                </div>
+                                <div class="volume__range">
+                                    <input type="range" name="volume" class="player__slider" min="0" max="1" step="0.05"
+                                           value="1">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <h5 id="video__caption"></h5>
+                </div>
+            </div>
+        </section>
+        <script>
+
+            jQuery(document).ready(function ($) {
+                $(".player__controls").css("opacity", 0);
+
+                var fitAudio = document.getElementById('fit-tips_gym_audio');
+
+
+                const player = document.querySelectorAll('.player-vid');
+                /*the for loop targets each element with the class player*/
+                for (var i = 0; i < player.length; i++) {
+                    const video = player[i].querySelector('.viewer');
+                    const progress = player[i].querySelector('.progress');
+                    const progressBar = player[i].querySelector('.progress__filled');
+                    const toggle = player[i].querySelector('.toggle');
+                    const skipButtons = player[i].querySelectorAll('[data-skip]');
+                    const ranges = player[i].querySelectorAll('.player__slider');
+
+                    /* Build out functions */
+                    function togglePlay() {
+
+
+                        $(".player__controls").animate({
+                            opacity: 1
+                        }, 1000, function () {
+
+                        });
+                        const method = video.paused ? 'play' : 'pause';
+                        video[method]();
+
+                        if (video.play) {
+                            $('video').trigger('pause');
+                            video[method]();
+
+
+                        } else {
+                            video[method]();
+                        }
+
+                        if ($('video').onclick) {
+                            var s = this.attr("src");
+                            console.log(s);
+                        }
+
+                    }
+
+                    function updateButton() {
+                        if (video.paused) {
+                            toggle.innerHTML = '<svg class="SVGInline-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 7 6" style="enable-background:new 0 0 7 6;" xml:space="preserve"><path d="M0,6l7-3L0,0C0,0,0,6,0,6z"></path></svg>';
+
+                        } else {
+                            toggle.innerHTML = '<svg class="SVGInline-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 7 9" style="enable-background:new 0 0 7 9;" xml:space="preserve"><path d="M5,0v9h2V0H5z M0,9h2V0H0V9z"></path></svg>';
+                        }
+                    }
+
+                    function skip() {
+                        video.currentTime += parseFloat(this.dataset.skip);
+                    }
+
+                    function handleRangeUpdate() {
+                        video[this.name] = this.value;
+
+                    }
+
+                    function handleProgress() {
+                        const percent = (video.currentTime / video.duration) * 100;
+                        progressBar.style.width = percent + "%";
+                    }
+
+
+                    function scrub(e) {
+                        const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+                        video.currentTime = scrubTime;
+
+                    }
+
+                    /* Hook up the event listners */
+                    video.addEventListener('click', togglePlay);
+                    video.addEventListener('play', updateButton);
+                    video.addEventListener('pause', updateButton);
+                    video.addEventListener('timeupdate', handleProgress);
+
+                    toggle.addEventListener('click', togglePlay);
+                    skipButtons.forEach(button => button.addEventListener('click', skip));
+                    ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
+                    ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
+
+                    let mousedown = false;
+                    progress.addEventListener('click', scrub);
+                    progress.addEventListener('mousemove', (e) => mousedown && scrub(e));
+                    progress.addEventListener('mousedown', () => mousedown = true);
+                    progress.addEventListener('mouseup', () => mousedown = false);
+
+                }
+
+            });
+
+
+            (function ($) {
+
+                $.fn.VideoPopUp = function (options) {
+
+                    var defaults = {
+                        backgroundColor: "#000000",
+                        opener: "video",
+                        maxweight: "640",
+                        pausevideo: false,
+                        idvideo: ""
+                    };
+
+                    var fitAudio = document.getElementById('fit-tips_gym_audio');
+                    var playIcon = document.getElementsByClassName('');
+                    var patter = this.attr('id');
+
+                    var settings = $.extend({}, defaults, options);
+
+                    var video = document.getElementById(settings.idvideo);
+
+
+                    function stopVideo() {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+
+                    $('#' + patter + '').css("display", "none");
+                    $('#' + patter + '').append('<div id="opct"></div>');
+                    $('#opct').css("background", settings.backgroundColor);
+                    $('#' + patter + '').css("z-index", "100001");
+                    $('#' + patter + '').css("position", "absolute");
+                    $('#' + patter + '').css("top", "0");
+                    $('#' + patter + '').css("bottom", "0");
+                    $('#' + patter + '').css("right", "0");
+                    $('#' + patter + '').css("left", "0");
+                    $('#' + patter + '').css("padding", "auto");
+                    $('#' + patter + '').css("text-align", "center");
+                    $('#' + patter + '').css("background", "none");
+                    $('#' + patter + '').css("vertical-align", "vertical-align");
+                    $("#videCont").css("z-index", "100002");
+                    $('.player-vid').append('<div id="close_videopopup" style="cursor:pointer;">x</div>');
+
+                    $('.' + settings.opener + "").on('click', function () {
+
+//                fitAudio.pause();
+
+                        $(".player__controls").animate({
+                            opacity: 1
+                        }, 1000, function () {
+
+                        });
+
+                        /*This grabs the video element and source element*/
+                        var fitVid = document.getElementById('demo');
+                        var source = document.getElementById('source');
+                        var vidCaption = document.getElementById('video__caption');
+
+                        /*switch statement that checks assigns video source based on corresponding image id*/
+                        switch (this.id) {
+                            case "fit-tips__pushups":
+                                source.src = "../assets/media/video/pages/bike360/north.mp4";
+                                vidCaption.innerHTML = "College St. and Dufferin Ave. > Annette Bike Lane>  Humber River Trail> West Humber Trail";
+                                break;
+                            case "fit-tips__prone":
+                                source.src = "../assets/media/video/pages/bike360/lake.mp4";
+                                vidCaption.innerHTML = "North campus > West Humber river trail> Humber River Trail> Royal York Rd. Bike Lane> Lakeshore Ave";
+                                break;
+                            case "fit-tips__glute":
+                                source.src = "../assets/media/video/pages/bike360/city.mp4";
+                                vidCaption.innerHTML = "Lakeshore Campus > Lakeshore Ave.> Waterfront Trail> Lower Simcoe St.> King St";
+                                break;
+                            default:
+                                source.src = "";
+                        }
+                        /*Loads video element to reload new video*/
+                        fitVid.load();
+
+                        $('#' + patter + "").fadeIn();
+
+                        $('#' + settings.idVideo + '').trigger('play');
+
+                    });
+
+
+                    $("#close_videopopup").on('click', function () {
+                        if (settings.pausevideo == true) {
+                            $('#' + settings.idVideo + '').trigger('pause');
+                        } else {
+                            stopVideo();
+                        }
+                        $('#' + patter).hide();
+                    });
+
+                    return this.css({});
+                };
+
+                $(function () {
+                    $('#vidBox').VideoPopUp({
+                        opener: "video-trigger",
+                        idVideo: "demo",
+                        backgroundColor: "#000000",
+                        pausevideo: true,
+                        maxweight: "640"
+                    });
+                });
+
+                function closePage() {
+                    history.go(-1);
+                }
+
+            }(jQuery));
+        </script>
+    </div>
+</div>
+</body>
+</html>

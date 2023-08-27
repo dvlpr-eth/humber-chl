@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body style=" background: #F7F7F7; ">
+<div class="page__overlay" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 1170px;">
+    <div class="container">
+        <section id="veggie-names__main" class="culinary__template">
+            <div class="side__heading">
+                <div class="side__heading__content">
+                    <h3>Interactive</h3>
+                    <img src="../assets/images/global/icon_interactive.png" alt="" class="img-responsive">
+                </div>
+            </div>
+            <div class="page__header">
+                <h1>Veggie Match!</h1>
+                <h5>Test your knowledge by dragging each veggie to their corresponding basket.</h5>
+            </div>
+            <div id="veggie-names__top">
+                <div class="veg-name__boxes">
+                    <div class="veg-name__box"><img src="../assets/images/pages/veggie-names/gherkins.png"  id="Gherkin_1" class="veg-name__box__img" alt="photo of Gherkins" width="150" /></div>
+                    <div class="veg-name__box" ><img src="../assets/images/pages/veggie-names/zucchini.png" id="Zucchini_2" class="veg-name__box__img" alt="photo of Zucchini" width="150" /></div>
+                    <div class="veg-name__box" ><img src="../assets/images/pages/veggie-names/eggplant.png" id="Eggplant_3" class="veg-name__box__img" alt="photo of Eggplants" width="150" /></div>
+                    <div class="veg-name__box" ><img src="../assets/images/pages/veggie-names/snowpea.png" id="Snowpea_4" class="veg-name__box__img" alt="photo of Snow Peas" width="150" /></div>
+                    <div class="veg-name__box" ><img src="../assets/images/pages/veggie-names/arugula.png" id="Arugula_5" class="veg-name__box__img" alt="photo of Arugula" width="150" /></div>
+                </div>
+            </div>
+            <div id="veggie-names__mid">
+
+            </div>
+            <div id="veggie-names__bottom">
+                <div class="veg-name__boxes">
+                    <div class="veg-name__box rcv" id="box1" data-name="Courgette_2"><img src="../assets/images/pages/veggie-names/emptybasket.png" alt="photo of a" width="160" /><span class="veggienames__label">COURGETTE</span></div>
+                    <div class="veg-name__box rcv" id="box2" data-name="Rocket_5"><img src="../assets/images/pages/veggie-names/emptybasket.png" alt="photo of a" width="160" /><span class="veggienames__label">ROCKET</span></div>
+                    <div class="veg-name__box rcv" id="box3" data-name="Mangetout_4"><img src="../assets/images/pages/veggie-names/emptybasket.png" alt="photo of a" width="160" /><span class="veggienames__label">MANGETOUT</span></div>
+                    <div class="veg-name__box rcv" id="box4" data-name="Cornichon_1"><img src="../assets/images/pages/veggie-names/emptybasket.png" alt="photo of a" width="160" /><span class="veggienames__label">CORNICHON</span></div>
+                    <div class="veg-name__box rcv" id="box5" data-name="Aubergine_3"><img src="../assets/images/pages/veggie-names/emptybasket.png" alt="photo of a" width="160" /><span class="veggienames__label">AUBERGINE</span></div>
+                </div>
+            </div>
+        </section>
+        <audio id="veg__audio_yes">
+            <source src="../assets/media/audio/pages/veggie-names/yes.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="veg__audio_no">
+            <source src="../assets/media/audio/pages/veggie-names/veg_no.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="veg__audio_end">
+            <source src="../assets/media/audio/pages/veggie-names/veg_end.mp3" type="audio/mpeg">
+        </audio>
+        <script>
+            jQuery(document).ready(function ($) {
+                $.getScript('http://code.jquery.com/ui/1.12.1/jquery-ui.min.js', function() {
+                    (function() {
+                        var veggiecounter = 0;
+                        var msgOut = document.getElementById("veggie-names__mid");
+                        var yesSFX = document.getElementById("veg__audio_yes");
+                        var noSFX = document.getElementById("veg__audio_no");
+                        var endSFX = document.getElementById("veg__audio_end");
+                        var zoom = $('.page__overlay').css('zoom');
+                        var parentDiv = $('.page__overlay');
+
+                        $('.veg-name__box__img').draggable({
+//
+                            revert: 'invalid',
+                            revertDuration: 300,
+                            zIndex: 100,
+                            containment: parentDiv,
+                            cursor: 'move'
+                        });
+                        $('.rcv').droppable({
+                            zIndex: 0,
+                            drop: handleDrop
+                        });
+
+                        function handleDrop(e, ui) {
+                            var dragged = ui.draggable.attr('id');
+                            var dragdElem = document.getElementById(dragged);
+                            var dragArray = dragged.split('_');
+                            var dropped = e.target.getAttribute('data-name');
+                            var dropArray = dropped.split('_');
+                            if (parseInt(dragArray[1]) === parseInt(dropArray[1])) {
+                                ui.draggable.draggable('option', 'revert', false);
+                                ui.draggable.draggable('disable');
+                                ui.draggable.remove();
+                                dragdElem.style.display = 'hidden';
+                                ui.draggable.draggable({
+                                    opacity: 0
+                                });
+                                $(e.target).find('img').attr('src', '../assets/images/pages/veggie-names/' + dragArray[0] + 'basket.png');
+                                if (veggiecounter === 4) {
+                                    endSFX.play();
+                                    msgOut.innerHTML = "<h1 class='correct'>Way To Go!</h1><p>You Guessed Them All Correctly!</p>";
+                                } else {
+                                    yesSFX.play();
+                                    msgOut.innerHTML = "<h1 class='correct'>Correct!</h1><p>" + dropArray[0] + " is the British name for " + dragArray[0] + ".</p>";
+                                    veggiecounter++;
+                                }
+                            } else {
+                                noSFX.play();
+                                ui.draggable.draggable('option', 'revert', true);
+                                msgOut.innerHTML = "<h1 class='not__correct'>Try Again!</h1><p>That is incorrect</p>";
+                            }
+                        }
+                    })();
+                });
+            });
+        </script>
+    </div>
+</div>
+
+
+</body>
+</html>

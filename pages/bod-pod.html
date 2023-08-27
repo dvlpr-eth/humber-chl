@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+
+</head>
+<body style="
+    background: #F7F7F7;
+">
+<div class="page__overlay" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 1170px;">
+    <div class="container">
+
+        <section id="bod_pod" class="behaviour__template">
+            <div class="side__heading">
+                <div class="side__heading__content">
+                    <h3>Audio</h3>
+                    <img src="../assets/images/global/audio-icon.png" alt="" class="img-responsive">
+                </div>
+            </div>
+            <div class="page__header">
+                <h1>Enter the Bod Pod</h1>
+                <h5>Experience Humber's body composition analyzer</h5>
+            </div>
+            <div id="bod_main">
+
+                        <div id="bod_cb_1" class="bod_pod_image" >
+                            <img class="bod_img " src="../assets/images/pages/bod_pod/bod_pod.jpg"
+                                 alt="Photo of Clare's head inside the Bod Pod."/>
+                        </div>
+
+                        <div id="bod_cb_2" class="bod_pod_image" >
+                            <img class="bod_img " src="../assets/images/pages/bod_pod/bod_cb_5.jpg"
+                                 alt="Photo of Clare and JD assessing the results of her Bod Pod test."/>
+                        </div>
+
+                        <div id="bod_cb_3" class="bod_pod_image" >
+                            <img class="bod_img " src="../assets/images/pages/bod_pod/bod_cb_6.jpg"
+                                 alt="Photo of the Bod Pod."/>
+                        </div>
+
+                        <div id="bod_cb_4" class="bod_pod_image" >
+                            <img class="bod_img " src="../assets/images/pages/bod_pod/bod_cb_4.jpg"
+                                 alt="Photo of Clare before entering the Bod Pod."/>
+                        </div>
+
+                        <div id="bod_cb_5" class="bod_pod_image" >
+                            <img class="bod_img " src="../assets/images/pages/bod_pod/bod_cb_1.jpg"
+                                 alt="Photo of Clare before entering the Bod Pod."/>
+                        </div>
+
+                        <div id="bod_cb_6" class="bod_pod_image" >
+                            <img class="bod_img " src="../assets/images/pages/bod_pod/bod_cb_7.jpg"
+                                 alt="Photo of JD measuring Clare's height."/>
+                        </div>
+
+                        <div id="bod_cb_7" class="bod_pod_image" >
+                            <img class="bod_img " src="../assets/images/pages/bod_pod/bod_cb_2.jpg"
+                                 alt="Photo of Clare inside the Bod Pod."/>
+                        </div>
+
+                        <div id="bod_cb_8" class="bod_pod_image">
+                            <img class="bod_img " src="../assets/images/pages/bod_pod/bod_cb_3.jpg"
+                                 alt="Photo of the computer input screen."/>
+                        </div>
+
+            </div>
+            <div class="audio__player">
+                <div id="bodpod_audio"></div>
+            </div>
+        </section>
+        <script src="../pages-vendors/audio-player.js"></script>
+        <script>
+
+            jQuery(document).ready(function ($) {
+                var bod_bod = (function () {
+                    var bod_audio = window.audioFile;
+
+                    console.log(bod_audio);
+                    function addImages(divID) {
+                        var thisDiv = document.getElementById(divID);
+                        if (thisDiv.className != "bod_pod_image fadeIn") {
+                            thisDiv.className += ' fadeIn';
+
+                        }
+                    }
+                    addImages('bod_cb_1');
+                    function checkCurrentTime() {
+                        console.log(bod_audio.currentTime);
+                        if (bod_audio.currentTime > 27) {
+                            addImages('bod_cb_2');
+                        }
+                        if (bod_audio.currentTime > 40) {
+                            addImages('bod_cb_3');
+                        }
+                        if (bod_audio.currentTime > 60) {
+                            addImages('bod_cb_4');
+                        }
+                        if (bod_audio.currentTime >80) {
+                            addImages('bod_cb_5');
+                        }
+                        if (bod_audio.currentTime > 100) {
+                            addImages('bod_cb_6');
+                        }
+                        if (bod_audio.currentTime > 110) {
+                            addImages('bod_cb_7');
+                        }
+                        if (bod_audio.currentTime > 136) {
+                            addImages('bod_cb_8');
+                        }
+                    }
+
+                    bod_audio.ontimeupdate = checkCurrentTime;
+
+                })();
+            });
+
+            initPlayer('#bodpod_audio', {
+                audioSrc: '../assets/media/audio/pages/bod_pod/bod_pod.mp3',
+                imageSrc: '../assets/images/pages/bod_pod/bod_pod.jpg',
+                title: 'Bod pod',
+                description: 'The concept of health is always intertwined with measurement, but the story of personal health is often much more complex.'
+            }, {
+                on: true,
+                lineColor: '#3f2f7d'
+            });
+
+        </script>
+    </div>
+</div>
+
+
+</body>
+</html>
+
