@@ -1,3 +1,1 @@
 # dvlpr-eth.guithub.io
-
-\
